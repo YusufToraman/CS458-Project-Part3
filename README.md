@@ -7,7 +7,7 @@ Move to backend
 python -m venv venv
 source venv/bin/activate
 
-pip3 install django djangorestframework django-allauth django-cors-headers
+pip3 install django djangorestframework django-allauth django-cors-headers dotenv requests jwt
 
 
 Move to frontend
