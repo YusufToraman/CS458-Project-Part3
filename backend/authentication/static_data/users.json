@@ -8,5 +8,10 @@
         "email": "user2@example.com",
         "password": "securepass",
         "google_id": null
+    },
+    {
+        "email": "dilaramandiracii@gmail.com",
+        "password": "123456",
+        "google_id": null
     }
 ]
