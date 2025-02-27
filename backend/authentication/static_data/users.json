@@ -1,12 +1,12 @@
 [
     {
-        "email": "user1@example.com",
-        "password": "password123",
+        "email": "admin@gmail.com",
+        "password": "admin123",
         "google_id": null
     },
     {
-        "email": "user2@example.com",
-        "password": "securepass",
+        "email": "test_user@gmail.com",
+        "password": "test123",
         "google_id": null
     },
     {

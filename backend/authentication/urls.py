@@ -5,5 +5,4 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('google-login/', google_login, name='google_login'),
     path('profile/', get_user_profile, name='profile'),
-
 ]

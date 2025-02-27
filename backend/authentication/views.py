@@ -1,35 +1,60 @@
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from rest_framework.decorators import api_view
 import json
 import os
 import requests
 
+from django.contrib.auth.decorators import login_required
+from django.core.cache import cache
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
+from django.http import JsonResponse
+from rest_framework.decorators import api_view
+
 USERS_FILE = os.path.join(os.path.dirname(__file__), 'static_data/users.json')
 GOOGLE_TOKEN_INFO_URL = "https://oauth2.googleapis.com/tokeninfo?id_token="
+MAX_LOGIN_ATTEMPTS = 3
+LOCKOUT_TIME = 10
 
 
-def load_users():
+def load_users_from_json():
     with open(USERS_FILE, 'r') as f:
         return json.load(f)
 
 
-def save_users(users):
+def save_users_to_json(users):
     with open(USERS_FILE, 'w') as f:
         json.dump(users, f, indent=4)
+
+
+def is_valid_email(email):
+    try:
+        validate_email(email)
+        return True
+    except ValidationError:
+        return False
 
 
 @api_view(['POST'])
 def login_view(request):
     email = request.data.get("email")
     password = request.data.get("password")
-    users = load_users()
+
+    if not is_valid_email(email):
+        return JsonResponse({"error": "Invalid email format"}, status=400)
+
+    failed_attempts = cache.get(f"failed_login_{email}", 0)
+    if failed_attempts >= MAX_LOGIN_ATTEMPTS:
+        return JsonResponse({"error": "Too many failed attempts. Try again later."}, status=403)
+
+    users = load_users_from_json()
 
     user = next(
         (u for u in users if u["email"] == email and u["password"] == password), None)
 
     if user:
+        cache.delete(f"failed_login_{email}")
         return JsonResponse({"message": "Successful Login"}, status=200)
+
+    cache.set(f"failed_login_{email}", failed_attempts + 1, LOCKOUT_TIME)
     return JsonResponse({"error": "Invalid credentials"}, status=400)
 
 
@@ -46,13 +71,13 @@ def google_login(request):
     google_id = google_data["sub"]
     email = google_data["email"]
 
-    users = load_users()
+    users = load_users_from_json()
 
     for user in users:
         if user["email"] == email:
             if user["google_id"] is None:
                 user["google_id"] = google_id
-                save_users(users)
+                save_users_to_json(users)
             return JsonResponse({"message": "Google Login Successful"}, status=200)
 
     return JsonResponse({"error": "User not found"}, status=404)
