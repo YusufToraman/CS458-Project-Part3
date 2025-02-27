@@ -13,7 +13,7 @@ from django.contrib.auth import login
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 
-USERS_FILE = os.path.join(os.path.dirname(__file__), 'users.json')
+USERS_FILE = os.path.join(os.path.dirname(__file__), 'static_data/users.json')
 
 def load_users():
     with open(USERS_FILE, 'r') as f:
