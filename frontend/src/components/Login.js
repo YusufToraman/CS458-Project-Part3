@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 import "../styles.css";
 
 const Login = () => {
@@ -30,8 +32,30 @@ const Login = () => {
         }
     };
 
-    const handleGoogleLogin = () => {
-        window.location.href = `${process.env.REACT_APP_API_URL}/accounts/google/login/`;
+    const responseGoogle = (response) => {
+        if (!response.credential) {
+            setError("Google Login Failed.");
+            return;
+        }
+
+        const decodedToken = jwtDecode(response.credential);
+        console.log("Decoded Google Token:", decodedToken);
+
+        fetch(`${process.env.REACT_APP_API_URL}/auth/google-login/`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id_token: response.credential }),
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            if (data.message) {
+                alert("Google Login Successful!");
+                window.location.href = "/dashboard";
+            } else {
+                setError(data.error || "Google Login Failed.");
+            }
+        })
+        .catch(() => setError("Something went wrong."));
     };
 
     return (
@@ -45,9 +69,10 @@ const Login = () => {
 
             <div className="divider">OR</div>
 
-            <button className="google-btn" onClick={handleGoogleLogin}>
-                Login with Google
-            </button>
+            <GoogleLogin
+                onSuccess={responseGoogle}
+                onError={() => setError("Google Login Failed")}
+            />
 
             {error && <p className="error-message">{error}</p>}
         </div>
