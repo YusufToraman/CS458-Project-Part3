@@ -21,5 +21,6 @@ yarn-error.log*
 
 # Virtual environment
 venv/
+.venv/
 # Python cache
 __pycache__/

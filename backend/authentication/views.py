@@ -52,7 +52,7 @@ def login_view(request):
 
     if user:
         cache.delete(f"failed_login_{email}")
-        return JsonResponse({"message": "Successful Login"}, status=200)
+        return JsonResponse({"message": "Successful Login", "user": f"{email}"}, status=200)
 
     cache.set(f"failed_login_{email}", failed_attempts + 1, LOCKOUT_TIME)
     return JsonResponse({"error": "Invalid credentials"}, status=400)
@@ -78,7 +78,7 @@ def google_login(request):
             if user["google_id"] is None:
                 user["google_id"] = google_id
                 save_users_to_json(users)
-            return JsonResponse({"message": "Google Login Successful"}, status=200)
+            return JsonResponse({"message": "Google Login Successful", "user": f"{email}"}, status=200)
 
     return JsonResponse({"error": "User not found"}, status=404)
 

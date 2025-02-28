@@ -18,6 +18,11 @@ def click_login(driver):
     login_button.click()
     time.sleep(2)
 
+def click_google_login(driver):
+    """ Helper function to click google login button """
+    google_login_button = driver.find_element(By.NAME, "google-login")
+    google_login_button.click()
+    time.sleep(2)
 
 def get_error_message(driver):
     """ Helper function to get error message """
