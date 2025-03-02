@@ -8,6 +8,7 @@ backend/authentication/views.py -> login functionalities
 backend/authentication/test/tests.py -> testlerimiz
 backend/authentication/tests/selenium_capabilities.py -> selenium helpers
 backend/authentication/static_data/users.json -> static data
+backend/.env -> environment variables (important for google login)
 
 frontend/src/components/login.js -> login frontend
 
