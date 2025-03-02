@@ -1,5 +1,17 @@
 # CS458-Project-Part1
 
+
+----------------------------------------------------------------------------------
+# IMPORTANT FILE / FOLDER LOCATIONS
+----------------------------------------------------------------------------------
+backend/authentication/views.py -> login functionalities
+backend/authentication/test/tests.py -> testlerimiz
+backend/authentication/tests/selenium_capabilities.py -> selenium helpers
+backend/authentication/static_data/users.json -> static data
+
+frontend/src/components/login.js -> login frontend
+
+
 ----------------------------------------------------------------------------------
 # TO SETUP
 ----------------------------------------------------------------------------------
@@ -36,7 +48,6 @@ To run a specific test: pytest tests.py -k "< test_function_name >"
 ----------------------------------------------------------------------------------
 # MANUEL LOGIN INSTURCTIONS
 ----------------------------------------------------------------------------------
-
 ## Regular Login:
 -------------------------
 1. Run backend, run frontend.
