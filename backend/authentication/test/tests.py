@@ -17,6 +17,11 @@ INVALID_CREDENTIALS = [
     ("test@random.xyz", "SecurePass1!"),  # Unrecognized domain
 ]
 
+
+import dotenv, os
+dotenv.load_dotenv()
+GOOGLE_CREDENTIALS = [(os.getenv('G_MAIL'), os.getenv('G_PASS'))] 
+
 @pytest.fixture(scope="function")
 def driver():
     """ Set up Selenium WebDriver in headless mode """
@@ -92,14 +97,9 @@ def test_login_state_persistancy(driver, email, password):
 
     print("\033[92mTest Passed: Login State Persisted\033[0m")
 
-@pytest.mark.parametrize("email, password", [VALID_CREDENTIALS[0]])
+@pytest.mark.parametrize("email, password", [GOOGLE_CREDENTIALS[0]])
 def test_google_login(driver:webdriver.Chrome, email, password):
     """ Test Google login """
-    import dotenv
-    import os
-    dotenv.load_dotenv()
-    gmailId = os.getenv('G_MAIL')
-    passWord = os.getenv('G_PASS')
     driver=setup_driver()
 
     driver.get(r'https://accounts.google.com/signin/v2/identifier?continue='+\
@@ -107,11 +107,11 @@ def test_google_login(driver:webdriver.Chrome, email, password):
     '&amp;flowName=GlifWebSignIn&amp;flowEntry = ServiceLogin')
     driver.implicitly_wait(15)
     loginBox = driver.find_element(By.XPATH,'//*[@id="identifierId"]')
-    loginBox.send_keys(gmailId)
+    loginBox.send_keys(email)
     loginBox.send_keys(Keys.ENTER)
     time.sleep(2)
     passWordBox = driver.find_element(By.CSS_SELECTOR, 'input[type="password"]')
-    passWordBox.send_keys(passWord)
+    passWordBox.send_keys(password)
     passWordBox.send_keys(Keys.ENTER)
     time.sleep(30)
     driver.get(BASE_URL)
@@ -122,8 +122,7 @@ def test_google_login(driver:webdriver.Chrome, email, password):
     driver.switch_to.window(driver.window_handles[1])
     print(driver.window_handles)
     time.sleep(2)
-    # get data-identifier="burakdemirel49@gmail.com" field
-    user = driver.find_element(By.CSS_SELECTOR, 'div[data-identifier="'+ gmailId + '"]')
+    user = driver.find_element(By.CSS_SELECTOR, 'div[data-identifier="'+ email + '"]')
     user.click()
     # select whole page
     time.sleep(2)
@@ -133,7 +132,7 @@ def test_google_login(driver:webdriver.Chrome, email, password):
     time.sleep(2)
     user = json.loads(driver.get_cookie("user")["value"])
     time.sleep(2)
-    assert user == gmailId, "Test Failed: Login state not persisted!"
+    assert user == email, "Test Failed: Login state not persisted!"
     print("\033[92mTest Passed: Google Login\033[0m")
 
 
