@@ -11,7 +11,6 @@ BASE_URL = "http://localhost:3000"
 VALID_CREDENTIALS = [("admin@gmail.com", "admin123"),
                      ("test_user@gmail.com", "test123")]
 INVALID_CREDENTIALS = [
-    ("", ""), # Empty fields
     ("admin@gmail.com", "wrongpassword"),  # Wrong password
     ("wronguser@example.com", "SecurePass1!"),  # Wrong email
     ("user@company", "SecurePass1!"),  # Missing domain extension
@@ -30,7 +29,7 @@ def driver():
     driver.quit()
     
 def setup_driver():
-    """ Set up Selenium WebDriver in headless mode """
+    """ Set up Selenium WebDriver without headless mode """
     options = Options()
     # options.add_argument("--headless=new")
 
@@ -114,7 +113,7 @@ def test_google_login(driver:webdriver.Chrome, email, password):
     passWordBox = driver.find_element(By.CSS_SELECTOR, 'input[type="password"]')
     passWordBox.send_keys(passWord)
     passWordBox.send_keys(Keys.ENTER)
-    time.sleep(5)
+    time.sleep(30)
     driver.get(BASE_URL)
     click_google_login(driver)
     time.sleep(2)

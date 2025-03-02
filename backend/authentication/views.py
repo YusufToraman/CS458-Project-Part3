@@ -38,6 +38,9 @@ def login_view(request):
     email = request.data.get("email")
     password = request.data.get("password")
 
+    if email == "" or password == "":
+        return JsonResponse({"error": "Email and password are required"}, status=400)
+
     if not is_valid_email(email):
         return JsonResponse({"error": "Invalid email format"}, status=400)
 
