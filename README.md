@@ -10,7 +10,7 @@ source venv/bin/activate
 
 
 # install requirements
-pip3 install requirements.txt
+pip install requirements.txt
 
 
 ----------------------------------------------------------------------------------
@@ -41,7 +41,7 @@ To run a specific test: pytest tests.py -k "< test_function_name >"
 -------------------------
 1. Run backend, run frontend.
 2. Enter one of the valid user credentials ("username", "password") from `static_data/user.json`. Or make sure you add new 
-credentials.
+mock credentials.
 3. Click login.
 4. You will be directed to the mock dashboard page.
 5. You can logout by clicking the logout button.
