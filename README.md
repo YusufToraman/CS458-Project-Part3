@@ -57,10 +57,8 @@ mock credentials.
 6. You can log out by clicking the logout button.
 
 
-To run the application, first run the backend and then run the frontend. After that, the tests are ready to run.
-
 ----------------------------------------------------------------------------------
-# TESTING GOOGLE LOGIN
+# !!! ATTENTITON !!! ACTIONS TO TAKE BEFORE RUNNING THE SELENIUM TESTS ABOUT GOOGLE LOGIN 
 ----------------------------------------------------------------------------------
 1. In order to test google login, first create a brand new google account. It needs to be Turkish.
 2. Add a recovery phone number and login to this account from your phone. It will be needed since Google has some precautions and security rules about logins.
