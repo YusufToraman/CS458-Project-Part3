@@ -58,7 +58,3 @@ credentials.
 
 
 To run the application, first run the backend and then run the frontend. After that, the tests are ready to run.
-
-
-To run the application first run backend and then run frontend. And then tests are ready to run.
-
