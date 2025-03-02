@@ -28,17 +28,15 @@ def driver():
     options = Options()
     options.add_argument("--headless=new")
 
-    driver = webdriver.Chrome(options=options)  # Fix: Pass options to Chrome
+    driver = webdriver.Chrome(options=options)
     driver.get(BASE_URL)
     yield driver
     driver.quit()
     
-def setup_driver():
+def setup_headless_driver():
     """ Set up Selenium WebDriver without headless mode """
     options = Options()
-    # options.add_argument("--headless=new")
-
-    driver = webdriver.Chrome(options=options)  # Fix: Pass options to Chrome
+    driver = webdriver.Chrome(options=options)
     driver.get(BASE_URL)
     return driver
 
@@ -100,7 +98,7 @@ def test_login_state_persistancy(driver, email, password):
 @pytest.mark.parametrize("email, password", [GOOGLE_CREDENTIALS[0]])
 def test_google_login(driver:webdriver.Chrome, email, password):
     """ Test Google login """
-    driver=setup_driver()
+    driver=setup_headless_driver()
 
     driver.get(r'https://accounts.google.com/signin/v2/identifier?continue='+\
     'https%3A%2F%2Fmail.google.com%2Fmail%2F&amp;service=mail&amp;sacu=1&amp;rip=1'+\
@@ -113,7 +111,7 @@ def test_google_login(driver:webdriver.Chrome, email, password):
     passWordBox = driver.find_element(By.CSS_SELECTOR, 'input[type="password"]')
     passWordBox.send_keys(password)
     passWordBox.send_keys(Keys.ENTER)
-    time.sleep(30)
+    time.sleep(20)
     driver.get(BASE_URL)
     click_google_login(driver)
     time.sleep(2)
@@ -152,8 +150,5 @@ def test_ui_user_friendliness(driver, email, password):
     print("\033[92mTest Passed: User Friendly UI\033[0m")
 
 
-
 if __name__ == "__main__":
     pytest.main()
-
-
