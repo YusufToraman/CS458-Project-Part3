@@ -8,6 +8,9 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
+from django.core.mail import send_mail as django_send_mail
+
+from django.conf import settings
 
 USERS_FILE = os.path.join(os.path.dirname(__file__), 'static_data/users.json')
 GOOGLE_TOKEN_INFO_URL = "https://oauth2.googleapis.com/tokeninfo?id_token="
@@ -31,6 +34,56 @@ def is_valid_email(email):
         return True
     except ValidationError:
         return False
+
+
+@api_view(['GET', 'POST'])
+def send_email(request):
+    data = request.data
+
+    name = data.get('name')
+    email = data.get('email')
+    birthdate = data.get('birthdate')
+    education = data.get('education')
+    city = data.get('city')
+    gender = data.get('gender')
+    use_case = data.get('use_case')
+    ai_models = data.get('ai_models', [])
+    cons = data.get('cons', {})
+
+    # Format email message
+    models_with_cons = "\n".join([
+        f"• {model}: {cons.get(model, 'No cons provided')}" for model in ai_models
+    ])
+    message = f"""
+        📝 AI Survey Response
+
+        👤 Name: {name}
+        📧 Email: {email}
+        🎂 Birthdate: {birthdate}
+        🎓 Education: {education}
+        🏙️ City: {city}
+        ⚧️ Gender: {gender}
+
+        🤖 AI Models Tried:
+        {', '.join(ai_models)}
+
+        ⚠️ Cons:
+        {models_with_cons}
+
+        ✅ Use Case:
+        {use_case}
+        """
+    try:
+        django_send_mail(
+            "AI Survey Submission",
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            [email],
+            fail_silently=False,
+        )
+        return JsonResponse({"message": "Email sent successfully"}, status=200)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
 
 
 @api_view(['POST'])
