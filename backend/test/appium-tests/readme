@@ -1,0 +1,73 @@
+## folder structure
+BACKEND/
+└── test/
+    └── appium-tests/
+        ├── tests.py         # Main Appium test script
+        ├── requirements.txt # Python dependencies
+        └── README.md        # This file
+
+## Requirements
+These must be installed before running the tests.
+
+### 1. Set up Android Studio
+- Open Android Studio → **Device Manager** → Create an emulator
+- ✅ Recommended: Android 10 (API 29) or higher
+
+### 2. Install Appium (v2)
+Install globally with npm:
+
+npm install -g appium
+appium driver install uiautomator2
+
+To verify it is installed correctly, run:
+
+appium -v
+Expected output: 2.x.x
+
+### 3. Python Setup
+Create and activate a virtual environment:
+
+python3 -m venv venv
+source venv/bin/activate
+Install dependencies:
+
+pip install Appium-Python-Client
+
+### Android SDK Environment Setup
+Set environment variables so Appium can find your SDK.
+
+In your terminal, run:
+
+echo 'export ANDROID_HOME=$HOME/Library/Android/sdk' >> ~/.zprofile
+echo 'export ANDROID_SDK_ROOT=$ANDROID_HOME' >> ~/.zprofile
+echo 'export PATH=$PATH:$ANDROID_HOME/emulator' >> ~/.zprofile
+echo 'export PATH=$PATH:$ANDROID_HOME/tools' >> ~/.zprofile
+echo 'export PATH=$PATH:$ANDROID_HOME/tools/bin' >> ~/.zprofile
+echo 'export PATH=$PATH:$ANDROID_HOME/platform-tools' >> ~/.zprofile
+source ~/.zprofile
+
+Then verify:
+
+echo $ANDROID_HOME
+adb devices
+
+▶## Running the Tests
+
+1. Start backend server
+In a separate terminal tab or window:
+cd backend
+python3 manager.py runserver
+
+2. Start the Android Emulator
+run your emulator from Android Studio
+
+3. Start the Appium Server in backend folder here
+In a separate terminal tab or window:
+
+appium
+Keep this terminal running.
+
+4. Run the Test
+In the appium-tests/ folder, run:
+
+python3 tests.py
