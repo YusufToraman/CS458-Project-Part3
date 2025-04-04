@@ -37,7 +37,7 @@ def is_valid_email(email):
 
 
 @api_view(['GET', 'POST'])
-def send_email(request):
+def submit(request):
     data = request.data
 
     name = data.get('name')
@@ -83,6 +83,7 @@ def send_email(request):
         )
         return JsonResponse({"message": "Email sent successfully"}, status=200)
     except Exception as e:
+        print("Error sending email:", e)
         return JsonResponse({"error": str(e)}, status=500)
 
 

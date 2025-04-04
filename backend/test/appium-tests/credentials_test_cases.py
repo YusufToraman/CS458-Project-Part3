@@ -31,3 +31,21 @@ test_cases = [
         "expect_success": True
     },
 ]
+
+valid_credential = {
+    "email": "admin@gmail.com",
+    "password": "admin123",
+}
+
+email_sent_test_cases = [
+    {
+        "label": "Not sending email",
+        "email": "a",
+        "expect_success": False
+    },
+    {
+        "label": "Sending email",
+        "email": "burakdemirel49@gmail.com",
+        "expect_success": True
+    }
+]
