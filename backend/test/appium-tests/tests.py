@@ -89,6 +89,117 @@ def run_login_test_cases(test_cases = credential_test_cases):
             else:
                 print(f"{GREEN}TEST SUCCEDED{RESET}")
 
+def test_form_completion_validation():
+    print("\nForm Completion & Validation Test")
+
+    def fill(id_, text):
+        field = driver.find_element(AppiumBy.ID, id_)
+        field.clear()
+        field.send_keys(text)
+        time.sleep(0.3)
+
+    # Fill all fields except use case
+    fill("com.example.aisurveyapp:id/email_input", "incomplete@example.com")
+    fill("com.example.aisurveyapp:id/name_input", "Tester")
+    fill("com.example.aisurveyapp:id/birthdate_input", "2000-01-01")
+    fill("com.example.aisurveyapp:id/city_input", "Izmir")
+    driver.find_element(AppiumBy.ID, "com.example.aisurveyapp:id/gender_female").click()
+    driver.find_element(AppiumBy.ID, "com.example.aisurveyapp:id/claude_check").click()
+
+    send_button = driver.find_element(AppiumBy.ID, "com.example.aisurveyapp:id/send_button")
+    time.sleep(1)
+
+    print_result(
+        send_button.get_attribute("enabled") == 'false',
+        "Send button correctly disabled when form is incomplete",
+        "Send button incorrectly enabled when form is incomplete"
+    )
+
+    # Now fill remaining field
+    fill("com.example.aisurveyapp:id/usecase_input", "Testing for science")
+    cons_container = driver.find_element(AppiumBy.ID, "com.example.aisurveyapp:id/cons_container")
+    cons_fields = cons_container.find_elements(AppiumBy.CLASS_NAME, "android.widget.EditText")
+    if cons_fields:
+        cons_fields[0].send_keys("Too verbose")
+
+    time.sleep(1)
+    print_result(
+        send_button.get_attribute("enabled") == 'true',
+        "Send button enabled after full form completion",
+        "Send button not enabled after full form completion"
+    )
+
+def test_checkbox_cons_field_behavior():
+    print("\nCheckbox Cons Field Behavior Test")
+
+    checkbox_id = "com.example.aisurveyapp:id/copilot_check"
+    cons_container_id = "com.example.aisurveyapp:id/cons_container"
+
+    copilot_checkbox = driver.find_element(AppiumBy.ID, checkbox_id)
+    copilot_checkbox.click()
+    time.sleep(1)
+
+    cons_container = driver.find_element(AppiumBy.ID, cons_container_id)
+    cons_fields = cons_container.find_elements(AppiumBy.CLASS_NAME, "android.widget.EditText")
+    has_field_before = False
+    for f in cons_fields:
+        if "Copilot" in (f.get_attribute("hint") or ""):
+            f.send_keys("abc123")
+            has_field_before = True
+            break
+
+    copilot_checkbox.click()
+    time.sleep(1)
+
+    cons_container = driver.find_element(AppiumBy.ID, cons_container_id)
+    cons_fields = cons_container.find_elements(AppiumBy.CLASS_NAME, "android.widget.EditText")
+    has_field_after_deselect = any("Copilot" in (f.get_attribute("hint") or "") for f in cons_fields)
+
+    copilot_checkbox.click()
+    time.sleep(1)
+
+    cons_container = driver.find_element(AppiumBy.ID, cons_container_id)
+    cons_fields = cons_container.find_elements(AppiumBy.CLASS_NAME, "android.widget.EditText")
+    reset_ok = True
+    for f in cons_fields:
+        if "Copilot" in (f.get_attribute("hint") or ""):
+            text = f.get_attribute("text")
+            reset_ok = "abc123" not in (text or "")
+            break
+
+    print_result(
+        has_field_before and not has_field_after_deselect and reset_ok,
+        "Cons field added, removed, and reset correctly",
+        "Checkbox cons field behavior failed"
+    )
+
+
+
+def test_usecase_input_length():
+    print("\nUse Case Input Length Test")
+
+    long_text = "Lorem Ipsum " * 100
+    usecase_field = driver.find_element(AppiumBy.ID, "com.example.aisurveyapp:id/usecase_input")
+    usecase_field.clear()
+    usecase_field.send_keys(long_text)
+    time.sleep(1)
+
+    actual_value = usecase_field.text
+    print_result(
+        long_text[:10] in actual_value,
+        "Long use case input accepted without crash or UI glitch",
+        "Use case input failed or broke on long input"
+    )
+
+
+
+
+def print_result(condition, success_msg, fail_msg):
+    if condition:
+        print(f"{GREEN}[PASS]{RESET} {success_msg}")
+    else:
+        print(f"{RED}[FAIL]{RESET} {fail_msg}")
+
 
 def test_email_sent_confirmation(email: str):
     driver.find_element(AppiumBy.ID, "com.example.aisurveyapp:id/email_input").send_keys(email)
@@ -187,6 +298,10 @@ def run_sent_email_test(test_cases = email_sent_test_cases):
 
 
 run_login_test_cases(credential_test_cases)
+test_form_completion_validation()
+test_checkbox_cons_field_behavior()
+test_usecase_input_length()
+
 run_sent_email_test()
 driver.quit()
 
