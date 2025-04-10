@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 import os
 import requests
@@ -54,6 +55,14 @@ def submit(request):
     models_with_cons = "\n".join([
         f"• {model}: {cons.get(model, 'No cons provided')}" for model in ai_models
     ])
+
+    # if birthdate str does not conform to dd/mm/yyyy format, return error
+    try:
+        print("Birthdate:", birthdate)
+        birthdate = datetime.strptime(birthdate, "%d/%m/%Y").strftime("%Y-%m-%d")
+    except ValueError:
+        return JsonResponse({"error": "Invalid date format. Use dd/mm/yyyy."}, status=400)
+
     message = f"""
         📝 AI Survey Response
 

@@ -49,3 +49,26 @@ email_sent_test_cases = [
         "expect_success": True
     }
 ]
+
+datetime_test_cases = [
+    {
+        "label": "Valid date",
+        "date": "01/10/2023",
+        "expect_success": True
+    },
+    {
+        "label": "Invalid date format",
+        "date": "32/10/2023",
+        "expect_success": False
+    },
+    {
+        "label": "Invalid date format (no year)",
+        "date": "01/10",
+        "expect_success": False
+    },
+    {
+        "label": "Invalid date format (no month)",
+        "date": "01/2023",
+        "expect_success": False
+    }
+]
