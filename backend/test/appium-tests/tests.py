@@ -109,6 +109,7 @@ def test_form_completion_validation():
     send_button = driver.find_element(AppiumBy.ID, "com.example.aisurveyapp:id/send_button")
     time.sleep(1)
 
+    print("Incomplete Input -> Is send button disabled:")
     print_result(send_button.get_attribute("enabled") == 'false')
 
     # Now fill remaining field
@@ -119,6 +120,7 @@ def test_form_completion_validation():
         cons_fields[0].send_keys("Too verbose")
 
     time.sleep(1)
+    print("Valid Input -> Is send button enabled:")
     print_result(send_button.get_attribute("enabled") == 'true')
 
 def test_checkbox_cons_field_behavior():
