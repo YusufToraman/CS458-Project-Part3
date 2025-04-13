@@ -109,11 +109,7 @@ def test_form_completion_validation():
     send_button = driver.find_element(AppiumBy.ID, "com.example.aisurveyapp:id/send_button")
     time.sleep(1)
 
-    print_result(
-        send_button.get_attribute("enabled") == 'false',
-        "Send button correctly disabled when form is incomplete",
-        "Send button incorrectly enabled when form is incomplete"
-    )
+    print_result(send_button.get_attribute("enabled") == 'false')
 
     # Now fill remaining field
     fill("com.example.aisurveyapp:id/usecase_input", "Testing for science")
@@ -123,11 +119,7 @@ def test_form_completion_validation():
         cons_fields[0].send_keys("Too verbose")
 
     time.sleep(1)
-    print_result(
-        send_button.get_attribute("enabled") == 'true',
-        "Send button enabled after full form completion",
-        "Send button not enabled after full form completion"
-    )
+    print_result(send_button.get_attribute("enabled") == 'true')
 
 def test_checkbox_cons_field_behavior():
     print("\nCheckbox Cons Field Behavior Test")
@@ -167,11 +159,7 @@ def test_checkbox_cons_field_behavior():
             reset_ok = "abc123" not in (text or "")
             break
 
-    print_result(
-        has_field_before and not has_field_after_deselect and reset_ok,
-        "Cons field added, removed, and reset correctly",
-        "Checkbox cons field behavior failed"
-    )
+    print_result(has_field_before and not has_field_after_deselect and reset_ok)
 
 
 
@@ -185,20 +173,16 @@ def test_usecase_input_length():
     time.sleep(1)
 
     actual_value = usecase_field.text
-    print_result(
-        long_text[:10] in actual_value,
-        "Long use case input accepted without crash or UI glitch",
-        "Use case input failed or broke on long input"
-    )
+    print_result(long_text[:10] in actual_value)
 
 
 
 
-def print_result(condition, success_msg, fail_msg):
+def print_result(condition):
     if condition:
-        print(f"{GREEN}[PASS]{RESET} {success_msg}")
+        print(f"{GREEN}TEST SUCCEEDED{RESET}")
     else:
-        print(f"{RED}[FAIL]{RESET} {fail_msg}")
+        print(f"{RED}TEST FAILED{RESET}")
 
 
 def test_email_sent_confirmation(email: str):
