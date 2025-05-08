@@ -54,15 +54,101 @@ button:hover {
     background: #c1351d;
 }
 
-.error-message {
-    color: red;
-    font-size: 14px;
-    margin-top: 10px;
-}
-
 .divider {
     margin: 15px 0;
     font-size: 14px;
     color: #777;
     font-weight: bold;
+}
+
+.page-title {
+    margin: 12rem 0 1.5rem;   /* Margin artırıldı, başlık aşağı kaydırıldı */
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+}
+  
+  /* adds vertical gap after any element that carries .field-gap */
+  .field-gap {
+    margin-bottom: 1.25rem !important;   /* override inline/bootstrap/etc. */
+  }
+  
+  /* 2. keep text-inputs wide, but NOT the check-boxes!  */
+  .survey-container input:not([type="checkbox"]):not([type="radio"]),
+  .survey-container select,
+  .survey-container textarea {
+    width: 100%;
+  }
+  
+  /* 3. checkbox row → nice and tight */
+  .tool-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;               /* little breathing room between box & label */
+    margin: 0.5rem 0;
+  }
+  
+  .survey-container input[type="checkbox"] {
+    /* override the global 100 % width that was pushing labels to the right */
+    width: auto;
+    accent-color: #1676ff;     /* optional: blue tick mark */
+  }
+  
+  .tool-label {
+    margin: 0;                 /* kills the huge indent you were seeing */
+    font-weight: 500;
+  }
+  
+  /* 4. cons-textarea right under the tool, but indented a bit */
+  .cons-input {
+    margin-left: 2rem;
+    width: calc(100% - 2rem);
+    resize: vertical;
+  }
+
+  /* --------------- Message Box Styling --------------- */
+
+.message-box {
+    margin: 1.5rem 0;
+    padding: 0.75rem 1rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  .error-message {
+    background-color: #ffe6e6;
+    color: #d93025;
+    border: 1px solid #d93025;
+  }
+  
+  .success-message {
+    background-color: #e6ffe6;
+    color: #188038;
+    border: 1px solid #188038;
+  }
+  
+  .icon {
+    font-size: 1.4rem;
+  }
+  
+  /* Animation for the message box */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .submit-btn {
+  margin-bottom: 4rem; /* Butonun altına boşluk ekliyoruz */
 }

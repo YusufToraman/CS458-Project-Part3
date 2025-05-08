@@ -51,12 +51,10 @@ def submit(request):
     ai_models = data.get('ai_models', [])
     cons = data.get('cons', {})
 
-    # Format email message
     models_with_cons = "\n".join([
         f"• {model}: {cons.get(model, 'No cons provided')}" for model in ai_models
     ])
 
-    # if birthdate str does not conform to dd/mm/yyyy format, return error
     try:
         print("Birthdate:", birthdate)
         birthdate = datetime.strptime(birthdate, "%d/%m/%Y").strftime("%Y-%m-%d")
