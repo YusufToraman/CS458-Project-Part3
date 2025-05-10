@@ -1,18 +1,5 @@
 # CS458-Project-Part3
 
-
-----------------------------------------------------------------------------------
-# IMPORTANT FILE / FOLDER LOCATIONS
-----------------------------------------------------------------------------------
-backend/authentication/views.py -> login functionalities
-backend/authentication/test/tests.py -> testlerimiz
-backend/authentication/tests/selenium_capabilities.py -> selenium helpers
-backend/authentication/static_data/users.json -> static data
-backend/.env -> environment variables (important for google login)
-
-frontend/src/components/login.js -> login frontend
-
-
 ----------------------------------------------------------------------------------
 # TO SETUP
 ----------------------------------------------------------------------------------
@@ -41,9 +28,9 @@ npm start
 
 
 # Test
-- Move to backend/authentication/test 
-To run all tests: pytest tests.py -s 
-To run a specific test: pytest tests.py -k "< test_function_name >"
+- Move to backend 
+To run all tests: python3 manage.py test tdd_dev 
+
 
 
 ----------------------------------------------------------------------------------
