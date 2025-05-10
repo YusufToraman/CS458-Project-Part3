@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import SurveyPage from "./components/SurveyPage";
+import SurveyBuilder from "./components/QuestionPage";
 
 function App() {
     console.log("Google Client ID:", process.env.REACT_APP_GOOGLE_CLIENT_ID);
@@ -16,6 +17,7 @@ function App() {
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="*" element={<h1>Not Found</h1>} />
                     <Route path="/surveyPage" element={<SurveyPage />} />
+                    <Route path="/surveyBuilder" element={<SurveyBuilder />} />
                 </Routes>
             </Router>
         </GoogleOAuthProvider>
