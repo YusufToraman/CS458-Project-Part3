@@ -21,9 +21,22 @@ export default function SurveyBuilder() {
   };
 
   const removeQuestion = (index) => {
-    const updated = [...questions];
-    updated.splice(index, 1);
-    setQuestions(updated);
+    const deletedId = questions[index].id;
+    const updated = questions.filter((_, i) => i !== index);
+
+    // Remove any conditionals that reference the deleted question
+    const cleaned = updated.map((q) => {
+      if (q.condition_question === deletedId) {
+        return {
+          ...q,
+          condition_question: null,
+          condition_answer: "",
+        };
+      }
+      return q;
+    });
+
+    setQuestions(cleaned);
   };
 
   const handleQuestionChange = (index, field, value) => {
@@ -92,15 +105,21 @@ export default function SurveyBuilder() {
               className="field-gap"
               placeholder="Question text"
               value={q.question_text}
-              onChange={(e) => handleQuestionChange(idx, "question_text", e.target.value)}
+              onChange={(e) =>
+                handleQuestionChange(idx, "question_text", e.target.value)
+              }
             />
-            <button onClick={() => removeQuestion(idx)} className="delete-btn">✕</button>
+            <button onClick={() => removeQuestion(idx)} className="delete-btn">
+              ✕
+            </button>
           </div>
 
           <select
             className="field-gap"
             value={q.question_type}
-            onChange={(e) => handleQuestionChange(idx, "question_type", e.target.value)}
+            onChange={(e) =>
+              handleQuestionChange(idx, "question_type", e.target.value)
+            }
           >
             <option value="text">Text</option>
             <option value="multiple_choice">Multiple Choice</option>
@@ -109,20 +128,34 @@ export default function SurveyBuilder() {
             <option value="rating">Rating</option>
           </select>
 
-          {["multiple_choice", "dropdown", "checkbox"].includes(q.question_type) && (
+          {["multiple_choice", "dropdown", "checkbox"].includes(
+            q.question_type
+          ) && (
             <div className="options-wrapper">
               <strong>Options:</strong>
               {q.options.map((opt, i) => (
                 <div key={i} className="tool-item">
                   <input
                     value={opt.text}
-                    onChange={(e) => handleOptionChange(idx, i, e.target.value)}
+                    onChange={(e) =>
+                      handleOptionChange(idx, i, e.target.value)
+                    }
                     placeholder={`Option ${i + 1}`}
                   />
-                  <button onClick={() => handleRemoveOption(idx, i)} className="delete-btn">✕</button>
+                  <button
+                    onClick={() => handleRemoveOption(idx, i)}
+                    className="delete-btn"
+                  >
+                    ✕
+                  </button>
                 </div>
               ))}
-              <button onClick={() => handleAddOption(idx)} className="add-option-btn">+ Add Option</button>
+              <button
+                onClick={() => handleAddOption(idx)}
+                className="add-option-btn"
+              >
+                + Add Option
+              </button>
             </div>
           )}
 
@@ -131,14 +164,24 @@ export default function SurveyBuilder() {
               <label>Show only if question:</label>
               <select
                 value={q.condition_question || ""}
-                onChange={(e) => handleQuestionChange(idx, "condition_question", e.target.value || null)}
+                onChange={(e) =>
+                  handleQuestionChange(
+                    idx,
+                    "condition_question",
+                    e.target.value || null
+                  )
+                }
               >
                 <option value="">None</option>
                 {questions
                   .filter((other) => other.id !== q.id)
-                  .map((other, j) => (
+                  .map((other) => (
                     <option key={other.id} value={other.id}>
-                      {`Q${questions.findIndex((qq) => qq.id === other.id) + 1} (ID: ${other.id.substring(0, 8)}): ${other.question_text || "(no text)"}`}
+                      {`Q${
+                        questions.findIndex((qq) => qq.id === other.id) + 1
+                      } (ID: ${other.id.substring(0, 8)}): ${
+                        other.question_text || "(no text)"
+                      }`}
                     </option>
                   ))}
               </select>
@@ -146,15 +189,21 @@ export default function SurveyBuilder() {
                 className="field-gap"
                 placeholder="Required answer"
                 value={q.condition_answer || ""}
-                onChange={(e) => handleQuestionChange(idx, "condition_answer", e.target.value)}
+                onChange={(e) =>
+                  handleQuestionChange(idx, "condition_answer", e.target.value)
+                }
               />
             </div>
           )}
         </div>
       ))}
 
-      <button onClick={addQuestion} className="submit-btn">+ Add Question</button>
-      <button onClick={handleSubmit} className="submit-btn">Submit Survey</button>
+      <button onClick={addQuestion} className="submit-btn">
+        + Add Question
+      </button>
+      <button onClick={handleSubmit} className="submit-btn">
+        Submit Survey
+      </button>
     </div>
   );
 }
