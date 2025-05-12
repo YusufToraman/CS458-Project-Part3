@@ -1,0 +1,115 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 2rem;
+  }
+  
+  .survey-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px;
+  }
+  
+  .page-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+  
+  /* Question block styling */
+  .question-block {
+    background: #fafafa;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Inputs and selects */
+  input,
+  select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  
+  .field-gap {
+    margin-bottom: 1.25rem;
+  }
+  
+  /* Options list container */
+  .options-wrapper {
+    margin-top: 0.75rem;
+  }
+  
+  /* Inline row of input and delete button */
+  .tool-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .tool-label {
+    margin: 0;
+    font-weight: 500;
+  }
+  
+  /* Buttons */
+  button {
+    transition: background 0.2s ease;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .submit-btn {
+    padding: 10px 16px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-right: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .submit-btn:hover {
+    background: #0056b3;
+  }
+  
+  .delete-btn {
+    background-color: transparent;
+    border: none;
+    color: #d93025;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+  }
+  
+  .add-option-btn {
+    background-color: #f0f0f0;
+    border: 1px dashed #aaa;
+    color: #333;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+  
+  .add-option-btn:hover {
+    background-color: #e4e4e4;
+  }
+  
