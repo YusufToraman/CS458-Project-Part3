@@ -3,14 +3,14 @@
 ----------------------------------------------------------------------------------
 # TO SETUP
 ----------------------------------------------------------------------------------
-# creating venv
+# create a venv
 - Move to backend 
 python -m venv venv
 source venv/bin/activate
 
 
 # install requirements
-pip install requirements.txt
+pip install -r requirements.txt
 
 
 ----------------------------------------------------------------------------------
@@ -27,10 +27,9 @@ npm install
 npm start
 
 
-# Test
+# TDD Tests
 - Move to backend 
 To run all tests: python3 manage.py test tdd_dev 
-
 
 
 ----------------------------------------------------------------------------------
@@ -39,11 +38,8 @@ To run all tests: python3 manage.py test tdd_dev
 ## Regular Login:
 -------------------------
 1. Run backend, run frontend.
-2. Enter one of the valid user credentials ("username", "password") from `static_data/user.json`. Or make sure you add new 
-mock credentials.
+2. Enter one of the valid user credentials ("username", "password") from `static_data/user.json`. Or make sure you add new mock credentials.
 3. Click login.
-4. You will be directed to the mock dashboard page.
-5. You can logout by clicking the logout button.
 
 
 ## Google Login:
@@ -52,12 +48,10 @@ mock credentials.
 2. Run the backend and frontend.
 3. Click "Google ile Oturum Açın" or in English "Sign in with Google".
 4. You will be redirected to the Google login service. Enter your credentials (i.e., your Google account). Remember, the Google account must be valid.
-5. You will be directed to the mock dashboard page.
-6. You can log out by clicking the logout button.
 
 
 ----------------------------------------------------------------------------------
-# !!! ATTENTITON !!! ACTIONS TO TAKE BEFORE RUNNING THE SELENIUM TESTS ABOUT GOOGLE LOGIN 
+# !!! ATTENTITON !!! ACTIONS TO TAKE BEFORE RUNNING THE TESTS ABOUT GOOGLE LOGIN 
 ----------------------------------------------------------------------------------
 1. In order to test google login, first create a brand new google account. It needs to be Turkish.
 2. Add a recovery phone number and login to this account from your phone. It will be needed since Google has some precautions and security rules about logins.
