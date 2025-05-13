@@ -62,44 +62,43 @@ button:hover {
 }
 
 .page-title {
-  margin: 12rem 0 1.5rem;   /* Margin artırıldı, başlık aşağı kaydırıldı */
+  margin: 2rem 0 1.5rem;
   text-align: center;
   font-size: 2rem;
   font-weight: 700;
 }
 
-/* adds vertical gap after any element that carries .field-gap */
+
 .field-gap {
-  margin-bottom: 1.25rem !important;   /* override inline/bootstrap/etc. */
+  margin-bottom: 1.25rem !important;
 }
 
-/* 2. keep text-inputs wide, but NOT the check-boxes!  */
+
 .survey-container input:not([type="checkbox"]):not([type="radio"]),
 .survey-container select,
 .survey-container textarea {
   width: 100%;
 }
 
-/* 3. checkbox row → nice and tight */
+
 .tool-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;               /* little breathing room between box & label */
+  gap: 0.5rem;              
   margin: 0.5rem 0;
 }
 
 .survey-container input[type="checkbox"] {
-  /* override the global 100 % width that was pushing labels to the right */
   width: auto;
-  accent-color: #1676ff;     /* optional: blue tick mark */
+  accent-color: #1676ff;    
 }
 
 .tool-label {
-  margin: 0;                 /* kills the huge indent you were seeing */
+  margin: 0;                 
   font-weight: 500;
 }
 
-/* 4. cons-textarea right under the tool, but indented a bit */
+
 .cons-input {
   margin-left: 2rem;
   width: calc(100% - 2rem);
@@ -137,7 +136,7 @@ button:hover {
   font-size: 1.4rem;
 }
 
-/* Animation for the message box */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -150,5 +149,5 @@ button:hover {
 }
 
 .submit-btn {
-margin-bottom: 4rem; /* Butonun altına boşluk ekliyoruz */
+margin-bottom: 4rem;
 }

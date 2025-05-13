@@ -37,7 +37,7 @@ const Login = () => {
       if (response.ok) {
         //alert("Login successful!");
         storeUser(data.user);
-        window.location.href = "/surveyPage";
+        window.location.href = "/Dashboard";
       } else {
         setError(data.error || "Login failed.");
       }
