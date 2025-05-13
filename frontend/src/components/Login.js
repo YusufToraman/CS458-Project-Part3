@@ -35,7 +35,6 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        //alert("Login successful!");
         storeUser(data.user);
         window.location.href = "/Dashboard";
       } else {
@@ -63,7 +62,6 @@ const Login = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.message) {
-        //   alert("Google Login Successful!");
           storeUser(data.user);
           window.location.href = "/surveyPage";
         } else {
