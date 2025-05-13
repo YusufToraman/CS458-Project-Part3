@@ -55,5 +55,5 @@ To run all tests: python3 manage.py test tdd_dev
 ----------------------------------------------------------------------------------
 1. In order to test google login, first create a brand new google account. It needs to be Turkish.
 2. Add a recovery phone number and login to this account from your phone. It will be needed since Google has some precautions and security rules about logins.
-3. Add your account's mail address and actual password to `.env` file. Fields are `G_MAIL` and `G_PASS`, respectively. If no such file, create it like /backend/.env
+3. Add your account's mail address and actual password to `.env` file. Fields are `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `G_MAIL` `G_PASS` and `G_APP_PASS` respectively. If no such file, create it like /backend/.env
 4. During the tests be ready to choose security number from your phone. During login Google asks it. If it say do you want to add passkey, choose no. If test fails, then run once more. This time it wont be asked to add passkey and test will go on.

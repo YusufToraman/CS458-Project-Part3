@@ -59,7 +59,6 @@ class SurveyBuilder:
     def build(self):
         survey = Survey.objects.create(title=self.title)
 
-        # Create all questions
         for q in self.questions:
             question = Question.objects.create(
                 survey=survey,
@@ -68,7 +67,6 @@ class SurveyBuilder:
             )
             self.uuid_to_instance[q["number"]] = question
 
-        # Handle conditionals and options
         for q in self.questions:
             question = self.uuid_to_instance[q["number"]]
             cond_uuid = q.get("condition_question")

@@ -63,7 +63,7 @@ const Login = () => {
       .then((data) => {
         if (data.message) {
           storeUser(data.user);
-          window.location.href = "/surveyPage";
+          window.location.href = "/Dashboard";
         } else {
           setError(data.error || "Google Login Failed.");
         }

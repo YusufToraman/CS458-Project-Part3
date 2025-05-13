@@ -26,7 +26,7 @@ class Question(models.Model):
     condition_answer = models.CharField(max_length=255, null=True, blank=True)
 
     def save(self, *args, **kwargs):
-        self.full_clean()  # enforce field validation
+        self.full_clean()
         super().save(*args, **kwargs)
 
 

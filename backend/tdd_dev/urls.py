@@ -1,5 +1,3 @@
-# urls.py (probably under tdd_dev or main app)
-
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import login_view, google_login, submit_survey, survey_build
