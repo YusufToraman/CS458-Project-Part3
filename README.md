@@ -1,6 +1,25 @@
 # CS458-Project-Part3
 
 ----------------------------------------------------------------------------------
+# FOLDER STRUCTURE
+----------------------------------------------------------------------------------
+- backend/
+  - authentication/ 
+  - backend/
+  - prev_tests/ -- these includes test used in project 1 and 2.
+  - tdd_dev/ -- these are the tests used for project 3
+  - .env -- you should provide your credentials
+  - db.sqlite3
+  - manage.py
+  - requirements.txt
+- frontend/
+- venv/
+- .gitignore
+- README.md
+
+
+
+----------------------------------------------------------------------------------
 # TO SETUP
 ----------------------------------------------------------------------------------
 # create a venv
@@ -40,6 +59,8 @@ To run all tests: python3 manage.py test tdd_dev
 1. Run backend, run frontend.
 2. Enter one of the valid user credentials ("username", "password") from `static_data/user.json`. Or make sure you add new mock credentials.
 3. Click login.
+4. It makes you do dashboard.
+5. Choose either going to fill survey page or build survey page.
 
 
 ## Google Login:
@@ -48,6 +69,7 @@ To run all tests: python3 manage.py test tdd_dev
 2. Run the backend and frontend.
 3. Click "Google ile Oturum Açın" or in English "Sign in with Google".
 4. You will be redirected to the Google login service. Enter your credentials (i.e., your Google account). Remember, the Google account must be valid.
+5. same as regular login.
 
 
 ----------------------------------------------------------------------------------
