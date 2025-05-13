@@ -69,6 +69,12 @@ const SurveyPage = () => {
 
   return (
     <div className="survey-container">
+      <button
+        className="back-button"
+        onClick={() => (window.location.href = "/dashboard")}
+      >
+        ⬅ Back to Dashboard
+      </button>
       <h1 className="page-title">Survey Page</h1>
       <h2 className="survey-title">AI Survey</h2>
 

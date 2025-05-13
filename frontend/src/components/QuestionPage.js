@@ -90,6 +90,12 @@ export default function SurveyBuilder() {
 
   return (
     <div className="survey-container">
+      <button
+        className="back-button"
+        onClick={() => (window.location.href = "/dashboard")}
+      >
+        ⬅ Back to Dashboard
+      </button>
       <h1 className="page-title">Create a Survey</h1>
       <input
         className="field-gap"
